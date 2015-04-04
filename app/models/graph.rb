@@ -6,29 +6,31 @@ class Graph
         @vertices = Hash.new
     end
 
-    def has_vertex?(vertex)
-        @vertices.member? vertex
+    def has_vertex?(vertex_key)
+        @vertices.member? vertex_key
     end
 
-    def connected?(from_vertex, to_vertex)
-        has_vertex?(from_vertex) && has_vertex?(to_vertex) && @vertices[from_vertex].member?(to_vertex)
+    def connected?(vertex_key, other_vertex_key)
+        has_vertex?(vertex_key) && has_vertex?(other_vertex_key) && @vertices[vertex_key].connected?(@vertices[other_vertex_key])
     end
 
-    def add_vertex(vertex)
-        unless has_vertex? vertex
-            @vertices[vertex] = Hash.new
+    def create_vertex(vertex_key)
+        unless has_vertex? vertex_key
+            @vertices[vertex_key] = Vertex.new vertex_key
         end
     end
 
-    def connect(from_vertex, to_vertex)
-        if has_vertex?(from_vertex) && has_vertex?(to_vertex)
-            @vertices[from_vertex][to_vertex] = 1;
+    def connect(vertex_key, other_vertex_key)
+        if has_vertex?(vertex_key) && has_vertex?(other_vertex_key)
+            @vertices[vertex_key].connect @vertices[other_vertex_key]
+            @vertices[other_vertex_key].connect @vertices[vertex_key]
         end
     end
 
-    def disconnect(from_vertex, to_vertex)
-        if(connected? from_vertex, to_vertex)
-            @vertices[from_vertex].delete to_vertex
+    def disconnect(vertex_key, other_vertex_key)
+        if connected?(vertex_key, other_vertex_key)
+            @vertices[vertex_key].disconnect @vertices[other_vertex_key]
+            @vertices[other_vertex_key].disconnect @vertices[vertex_key]
         end
     end
 
@@ -41,7 +43,7 @@ class Graph
     	regular
  	end
  		
-    def adjacents(vertex)
-        @vertices[vertex];
+    def adjacents(vertex_key)
+        @vertices[vertex_key].adjacents
     end
 end

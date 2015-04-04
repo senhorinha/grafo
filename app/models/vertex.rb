@@ -1,9 +1,9 @@
 class Vertex
 
 	def initialize key
-        @adjacents = hash.new
+        @adjacents = Hash.new
         @degree = 0
-        @key = key 
+        @key = key
     end
 
     def degree
@@ -15,8 +15,19 @@ class Vertex
     end
 
     def connect vertex
-    	@a.adjacents[vertex.key] = vertex
-    	@degree++
+    	@adjacents[vertex.key] = vertex
+    	@degree += 1
     end
 
+    def disconnect vertex
+        @adjacents.delete vertex.key
+    end
+
+    def connected? vertex
+        @adjacents.member? vertex.key
+    end
+
+    def adjacents 
+        @adjacents
+    end
 end
