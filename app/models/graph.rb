@@ -32,4 +32,7 @@ class Graph
         end
     end
 
+    def adjacents(vertex)
+        @vertices[vertex];
+    end
 end
