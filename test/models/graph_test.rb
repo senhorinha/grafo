@@ -35,4 +35,11 @@ class GraphTest < ActiveSupport::TestCase
         assert_equal false, @graph.connected?(@vertex_two, @vertex_one)
     end
 
+    test "should disconnect vertex" do
+        add_vertices
+        @graph.connect @vertex_one, @vertex_two
+        @graph.disconnect @vertex_one, @vertex_two
+        assert_equal false, @graph.connected?(@vertex_one, @vertex_two)
+    end
+
 end
