@@ -10,6 +10,10 @@ class Graph
         @vertices.member? vertex
     end
 
+    def connected?(from_vertex, to_vertex)
+        has_vertex?(from_vertex) && has_vertex?(to_vertex) && @vertices[from_vertex].member?(to_vertex)
+    end
+
     def add_vertex(vertex)
         unless has_vertex? vertex
             @vertices[vertex] = Hash.new
@@ -22,8 +26,10 @@ class Graph
         end
     end
 
-    def connected?(from_vertex, to_vertex)
-        has_vertex?(from_vertex) && has_vertex?(to_vertex) && @vertices[from_vertex].member?(to_vertex)
+    def disconnect(from_vertex, to_vertex)
+        if(connected? from_vertex, to_vertex)
+            @vertices[from_vertex].delete to_vertex
+        end
     end
 
 end
