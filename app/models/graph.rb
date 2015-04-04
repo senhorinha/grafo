@@ -1,5 +1,7 @@
 class Graph
 
+    attr_accessor :vertices
+
     def initialize
         @vertices = Hash.new
     end
