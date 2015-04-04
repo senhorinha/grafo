@@ -26,9 +26,11 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0'
   gem 'sqlite3'
   gem 'shoulda', '~> 3.5.0'
+  gem 'minitest-reporters', '1.0.5'
+  gem 'mini_backtrace',     '0.1.3'
+  gem 'guard-minitest',     '2.3.1'
 end
 
 group :test do
