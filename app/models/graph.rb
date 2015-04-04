@@ -32,4 +32,12 @@ class Graph
         end
     end
 
+    def regular?
+    	first_vertex_degree = @vertices.values.first.degree
+    	regular = true
+    	@vertices.each_value do |vertex|
+    		regular = false if first_vertex_degree != vertex.degree
+    	end
+    	regular
+    end
 end
