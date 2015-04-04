@@ -32,7 +32,6 @@ class Graph
         end
     end
 
-<<<<<<< HEAD
     def regular?
     	first_vertex_degree = @vertices.values.first.degree
     	regular = true
@@ -40,9 +39,9 @@ class Graph
     		regular = false if first_vertex_degree != vertex.degree
     	end
     	regular
-=======
+ 	end
+ 		
     def adjacents(vertex)
         @vertices[vertex];
->>>>>>> 88921c2e3cf1f4ec775f2403be3202e23db8a1cf
     end
 end
