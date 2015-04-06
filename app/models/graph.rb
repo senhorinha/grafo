@@ -6,36 +6,36 @@ class Graph
         @vertices = Hash.new
     end
 
-    def has_vertex?(vertex_key)
-        @vertices.member? vertex_key
+    def has_vertex?(vertex)
+        @vertices.member? vertex
     end
 
-    def connected?(vertex_key, other_vertex_key)
-        has_vertex?(vertex_key) && has_vertex?(other_vertex_key) && @vertices[vertex_key].connected?(@vertices[other_vertex_key])
+    def connected?(vertex, other_vertex)
+        has_vertex?(vertex) && has_vertex?(other_vertex) && vertex.connected?(other_vertex)
     end
 
-    def create_vertex(vertex_key)
-        unless has_vertex? vertex_key
-            @vertices[vertex_key] = Vertex.new vertex_key
+    def add_vertex(vertex)
+        unless has_vertex? vertex
+            @vertices[vertex] = 1 
         end
     end
 
-    def connect(vertex_key, other_vertex_key)
-        if has_vertex?(vertex_key) && has_vertex?(other_vertex_key)
-            @vertices[vertex_key].connect @vertices[other_vertex_key]
-            @vertices[other_vertex_key].connect @vertices[vertex_key]
+    def connect(vertex, other_vertex)
+        if has_vertex?(vertex) && has_vertex?(other_vertex)
+            vertex.connect other_vertex
+            other_vertex.connect vertex
         end
     end
 
-    def disconnect(vertex_key, other_vertex_key)
-        if connected?(vertex_key, other_vertex_key)
-            @vertices[vertex_key].disconnect @vertices[other_vertex_key]
-            @vertices[other_vertex_key].disconnect @vertices[vertex_key]
+    def disconnect(vertex, other_vertex)
+        if connected?(vertex, other_vertex)
+            vertex.disconnect other_vertex
+            other_vertex.disconnect vertex
         end
     end
 
     def regular?
-    	first_vertex_degree = @vertices.values.first.degree
+    	first_vertex_degree = @vertices.keys.first.degree
     	regular = true
     	@vertices.each_value do |vertex|
     		regular = false if first_vertex_degree != vertex.degree
@@ -43,7 +43,7 @@ class Graph
     	regular
  	end
  		
-    def adjacents(vertex_key)
-        @vertices[vertex_key].adjacents
+    def adjacents(vertex)
+        vertex.adjacents
     end
 end

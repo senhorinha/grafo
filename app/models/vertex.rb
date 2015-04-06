@@ -1,33 +1,28 @@
 class Vertex
 
-	def initialize key
+    attr_accessor :adjacents
+
+	def initialize
         @adjacents = Hash.new
-        @degree = 0
-        @key = key
     end
 
     def degree
-    	@degree
-    end
-
-    def key
-    	@key
+    	@adjacents.length
     end
 
     def connect vertex
-    	@adjacents[vertex.key] = vertex
-    	@degree += 1
+    	@adjacents[vertex] = 1
     end
 
     def disconnect vertex
-        @adjacents.delete vertex.key
+        @adjacents.delete vertex
     end
 
     def connected? vertex
-        @adjacents.member? vertex.key
+        @adjacents.member? vertex
     end
 
     def adjacents 
-        @adjacents
+        @adjacents.keys
     end
 end
