@@ -36,6 +36,11 @@ class GraphTest < ActiveSupport::TestCase
         assert_equal true, @graph.has_vertex?(@vertex_one) && @graph.has_vertex?(@vertex_two)
     end
 
+    test "should return random vertex" do
+        add_vertices
+        assert_equal false, @graph.random_vertex.nil?
+    end
+
     test "should connect vertices" do
         add_vertices
         @graph.connect @vertex_one, @vertex_two

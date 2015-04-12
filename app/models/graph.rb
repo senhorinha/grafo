@@ -47,6 +47,11 @@ class Graph
         vertex.adjacents
     end
 
+    def random_vertex
+        random = Random.new
+        @vertices.keys[random.rand @vertices.length]
+    end
+
     def transitive_closure_of(vertex)
         transitive_closure = [vertex];
         ignored_vertices = [];
