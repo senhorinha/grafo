@@ -43,15 +43,6 @@ class Graph
         end
     end
 
-    def regular?
-    	first_vertex_degree = @vertices.keys.first.degree
-    	regular = true
-    	@vertices.each_value do |vertex|
-    		regular = false if first_vertex_degree != vertex.degree
-    	end
-    	regular
- 	end
-
     def adjacents(vertex)
         vertex.adjacents
     end
@@ -79,4 +70,15 @@ class Graph
         end
         transitive_closure
     end
+
+    def regular?
+    	first_vertex_degree = @vertices.keys.first.degree
+    	regular = true
+    	@vertices.each_value do |vertex|
+    		regular = false if first_vertex_degree != vertex.degree
+    	end
+    	regular
+ 	end
+
+
 end
