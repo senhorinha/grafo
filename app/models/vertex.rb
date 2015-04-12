@@ -1,8 +1,10 @@
 class Vertex
 
-    attr_accessor :adjacents
+    attr_reader :adjacents
+    attr_reader :value
 
-	def initialize
+	def initialize value
+        @value = value
         @adjacents = Hash.new
     end
 
@@ -22,7 +24,7 @@ class Vertex
         @adjacents.member? vertex
     end
 
-    def adjacents 
+    def adjacents
         @adjacents.keys
     end
 end

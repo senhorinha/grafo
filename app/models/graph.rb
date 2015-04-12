@@ -1,6 +1,6 @@
 class Graph
 
-    attr_accessor :vertices
+    attr_reader :vertices
 
     def initialize
         @vertices = Hash.new
@@ -16,7 +16,7 @@ class Graph
 
     def add_vertex(vertex)
         unless has_vertex? vertex
-            @vertices[vertex] = 1 
+            @vertices[vertex] = 1
         end
     end
 
@@ -42,8 +42,32 @@ class Graph
     	end
     	regular
  	end
- 		
+
     def adjacents(vertex)
         vertex.adjacents
+    end
+
+    def transitive_closure_of(vertex)
+        transitive_closure = [vertex];
+        ignored_vertices = [];
+        if has_vertex? vertex
+            transitive_closure = recursive_transitive_closure(transitive_closure, ignored_vertices)
+        end
+        transitive_closure
+    end
+
+    private
+
+    def recursive_transitive_closure(transitive_closure, ignored_vertices)
+       transitive_closure.each do |vertex|
+            unless ignored_vertices.include? vertex
+                transitive_closure = transitive_closure | adjacents(vertex)
+                ignored_vertices.push vertex
+            end
+        end
+        if transitive_closure.length != ignored_vertices.length
+            transitive_closure = transitive_closure | recursive_transitive_closure(transitive_closure, ignored_vertices)
+        end
+        transitive_closure
     end
 end
