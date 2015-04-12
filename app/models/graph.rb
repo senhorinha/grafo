@@ -20,6 +20,15 @@ class Graph
         end
     end
 
+    def remove_vertex(vertex)
+        if has_vertex? vertex
+            @vertices.delete vertex
+            @vertices.keys.each do |other_vertex|
+                other_vertex.disconnect vertex
+            end
+        end
+    end
+
     def connect(vertex, other_vertex)
         if has_vertex?(vertex) && has_vertex?(other_vertex)
             vertex.connect other_vertex

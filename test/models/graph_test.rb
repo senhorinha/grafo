@@ -24,6 +24,13 @@ class GraphTest < ActiveSupport::TestCase
         assert_equal true, @graph.has_vertex?(@vertex_one)
     end
 
+    test "should remove vertex and all your relationships" do
+        add_vertices
+        @graph.connect @vertex_two, @vertex_one
+        @graph.remove_vertex @vertex_one
+        assert_equal false, @graph.has_vertex?(@vertex_one) || @graph.adjacents(@vertex_two).member?(@vertex_one)
+    end
+
     test "should add two new vertices" do
         add_vertices
         assert_equal true, @graph.has_vertex?(@vertex_one) && @graph.has_vertex?(@vertex_two)
