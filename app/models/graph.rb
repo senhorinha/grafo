@@ -56,6 +56,28 @@ class Graph
         transitive_closure
     end
 
+    def regular?
+        first_vertex_degree = @vertices.keys.first.degree
+        regular = true
+        @vertices.each_value do |vertex|
+            regular = false if first_vertex_degree != vertex.degree
+        end
+        regular
+    end
+
+    def complete?
+        @vertices.keys.each do |vertex|
+            aux = @vertices.keys
+            aux.delete vertex
+            aux.each do |other_vertex|
+                unless vertex.connected? other_vertex
+                    return false
+                end
+            end
+        end
+        true
+    end
+
     private
 
     def recursive_transitive_closure(transitive_closure, ignored_vertices)
@@ -70,15 +92,6 @@ class Graph
         end
         transitive_closure
     end
-
-    def regular?
-    	first_vertex_degree = @vertices.keys.first.degree
-    	regular = true
-    	@vertices.each_value do |vertex|
-    		regular = false if first_vertex_degree != vertex.degree
-    	end
-    	regular
- 	end
 
 
 end

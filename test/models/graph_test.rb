@@ -73,4 +73,22 @@ class GraphTest < ActiveSupport::TestCase
         assert_equal true, transitive_closure.include?(@vertex_one) && transitive_closure.include?(@vertex_two) && transitive_closure.include?(@vertex_three) && transitive_closure.include?(@vertex_four) && transitive_closure.include?(@vertex_five)
     end
 
+    test "should recognize complete graph" do
+        @graph.add_vertex @vertex_one
+        @graph.add_vertex @vertex_two
+        @graph.add_vertex @vertex_three
+
+        @graph.connect @vertex_one, @vertex_two
+        @graph.connect @vertex_one, @vertex_three
+
+
+        @graph.connect @vertex_two, @vertex_one
+        @graph.connect @vertex_two, @vertex_three
+
+        @graph.connect @vertex_three, @vertex_one
+        @graph.connect @vertex_three, @vertex_two
+
+        assert_equal true, @graph.complete?
+    end
+
 end
