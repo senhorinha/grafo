@@ -16,43 +16,43 @@ Devemos implementar uma estrutura de Grafo capaz de realizar as operações abai
       <b>Ações Básicas</b>
     </caption>
     <tbody><tr>
-      <td>G.<font color="#800040"><b>adicionaVértice</b></font>(v)</td>
+      <td>G.<font color="#800040"><b>add_vertex</b></font>(v)</td>
       <td>"Adiciona um&nbsp;novo vértice em G"</td>
     </tr>
     <tr>
-      <td>G.<font color="#800040"><b>removeVértice</b></font>(v)</td>
+      <td>G.<font color="#800040"><b>remove_vertex</b></font>(v)</td>
       <td>"Remove um&nbsp; vértice de G, juntamente com todas as conexões"</td>
     </tr>
     <tr>
-      <td>G.<font color="#800040"><b>conecta</b></font>(v<sub>1</sub>,v<sub>2</sub>)</td>
+      <td>G.<font color="#800040"><b>connect</b></font>(v<sub>1</sub>,v<sub>2</sub>)</td>
       <td>"Conecta os vértices v<sub>1</sub> e v<sub>2</sub> em G"</td>
     </tr>
     <tr>
-      <td>G.<font color="#800040"><b>desconecta</b></font>(v<sub>1</sub>,v<sub>2</sub>)</td>
+      <td>G.<font color="#800040"><b>disconnect</b></font>(v<sub>1</sub>,v<sub>2</sub>)</td>
       <td>"Desconecta os vértices v<sub>1</sub> e v<sub>2</sub> em G"</td>
     </tr>
     <tr>
-      <td>G.<font color="#800000"><b>ordem</b></font>
+      <td>G.<font color="#800000"><b>order</b></font>
     <img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Inteiro</td>
       <td>"Retorna o número de vértices de G"</td>
     </tr>
     <tr>
-      <td>G.<font color="#800000"><b>vértices</b></font>
+      <td>G.<font color="#800000"><b>vertices</b></font>
     <img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Conjunto</td>
       <td>"Retorna um conjunto contendo os vértices de G"</td>
     </tr>
     <tr>
-      <td>G.<font color="#800000"><b>umVértice</b></font>
+      <td>G.<font color="#800000"><b>random_vertex</b></font>
     <img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Vertice</td>
       <td>"Retorna um vértice qualquer de G"</td>
     </tr>
     <tr>
-      <td>G.<font color="#800000"><b>adjacentes</b></font>(v)<img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Conjunto</td>
+      <td>G.<font color="#800000"><b>adjacents</b></font>(v)<img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Conjunto</td>
       <td>"Retorna um conjunto contendo os vértices adjacentes a <i>v</i>
     em G"</td>
     </tr>
     <tr>
-      <td>G.<font color="#800000"><b>grau</b></font>(v)<img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Inteiro</td>
+      <td>G.<font color="#800000"><b>degree</b></font>(v)<img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Inteiro</td>
       <td>"Retorna o&nbsp;número de vértices adjacentes a <i>v</i>
     em G"</td>
     </tr>
@@ -63,28 +63,28 @@ Devemos implementar uma estrutura de Grafo capaz de realizar as operações abai
     <b>Ações Derivadas</b>
       </caption>
       <tbody><tr>
-    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#regular">éRegular</a></b><img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Boolean</td>
+    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#regular">regular?</a></b><img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Boolean</td>
     <td>"Verifica&nbsp;se todos os&nbsp;vértices de G possuem o mesmo
       grau"</td>
       </tr>
       <tr>
-    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#completo">éCompleto</a></b><img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Boolean</td>
+    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#completo">complete?</a></b><img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Boolean</td>
     <td>"Verifica&nbsp;se cada&nbsp;vértice de G está conectados
       <br>
       &nbsp;a todos os&nbsp;outros vértices"</td>
       </tr>
       <tr>
-    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#fechoTransitivo">fechoTransitivo</a></b>(v)<img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Conjunto</td>
+    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#fechoTransitivo">transitive_closure_of</a></b>(v)<img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Conjunto</td>
     <td>"Retorna um conjunto contendo todos os vértices de G que<br>
       &nbsp;são transitivamente alcancáveis partindo-se de <i>v</i>"</td>
       </tr>
       <tr>
-    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#conexo">éConexo</a></b><img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Boolean</td>
+    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#conexo">connected?</a></b><img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Boolean</td>
     <td>"Verifica&nbsp;se existe pelo menos um caminho que entre <br>
       &nbsp;cada par de vértices de G"</td>
       </tr>
       <tr>
-    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#arvore">éÁrvore</a></b><img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Boolean</td>
+    <td>G.<b><a href="http://www.inf.ufsc.br/grafos/represen/algoritmos/grafo-imp.html#arvore">tree?</a></b><img width="24" height="13" align="Top" src="http://s23.postimg.org/xu11un0xz/seta.gif">Boolean</td>
     <td>"Verifica&nbsp;se não há ciclos em G"</td>
       </tr>
     </tbody></table>
