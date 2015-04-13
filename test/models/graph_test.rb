@@ -96,4 +96,41 @@ class GraphTest < ActiveSupport::TestCase
         assert_equal true, @graph.complete?
     end
 
+    test "should return a random vertice" do
+        add_vertices
+
+        any_vertex = @graph.random_vertex
+        assert_equal true, any_vertex.is_a?(Vertex)
+        assert_equal true, @graph.has_vertex?(any_vertex)
+    end
+
+    test "should return a graph order" do
+        @graph.add_vertex @vertex_one
+        @graph.add_vertex @vertex_two
+        @graph.add_vertex @vertex_three
+
+        assert_equal true, @graph.order == 3
+    end
+
+    test "should return false because graph is not regular" do
+        @graph.add_vertex @vertex_one
+        @graph.add_vertex @vertex_two
+        @graph.add_vertex @vertex_three
+
+        @graph.connect(@vertex_one, @vertex_two)
+
+        assert_equal false, @graph.regular?
+    end
+
+    test "should return true because graph is regular" do
+        @graph.add_vertex @vertex_one
+        @graph.add_vertex @vertex_two
+        @graph.add_vertex @vertex_three
+        @graph.add_vertex @vertex_four
+
+        @graph.connect(@vertex_one, @vertex_two)
+        @graph.connect(@vertex_three, @vertex_four)
+
+        assert_equal true, @graph.regular?
+    end
 end

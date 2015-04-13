@@ -16,7 +16,7 @@ class Graph
 
     def add_vertex(vertex)
         unless has_vertex? vertex
-            @vertices[vertex] = 1
+            @vertices[vertex] = vertex.adjacents
         end
     end
 
@@ -47,6 +47,10 @@ class Graph
         vertex.adjacents
     end
 
+    def order 
+        @vertices.length
+    end
+
     def random_vertex
         random = Random.new
         @vertices.keys[random.rand @vertices.length]
@@ -64,7 +68,7 @@ class Graph
     def regular?
         first_vertex_degree = @vertices.keys.first.degree
         regular = true
-        @vertices.each_value do |vertex|
+        @vertices.each_key do |vertex|
             regular = false if first_vertex_degree != vertex.degree
         end
         regular
@@ -97,6 +101,4 @@ class Graph
         end
         transitive_closure
     end
-
-
 end
