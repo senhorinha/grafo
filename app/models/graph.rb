@@ -1,3 +1,5 @@
+require 'set'
+
 class Graph
 
     attr_reader :vertices
@@ -10,8 +12,8 @@ class Graph
         @vertices.member? vertex
     end
 
-    def connected?(vertex, other_vertex)
-        has_vertex?(vertex) && has_vertex?(other_vertex) && vertex.connected?(other_vertex)
+    def linked?(vertex, other_vertex)
+        has_vertex?(vertex) && has_vertex?(other_vertex) && vertex.linked?(other_vertex)
     end
 
     def add_vertex(vertex)
@@ -24,22 +26,22 @@ class Graph
         if has_vertex? vertex
             @vertices.delete vertex
             @vertices.keys.each do |other_vertex|
-                other_vertex.disconnect vertex
+                other_vertex.unlink vertex
             end
         end
     end
 
-    def connect(vertex, other_vertex)
+    def link(vertex, other_vertex)
         if has_vertex?(vertex) && has_vertex?(other_vertex)
-            vertex.connect other_vertex
-            other_vertex.connect vertex
+            vertex.link other_vertex
+            other_vertex.link vertex
         end
     end
 
-    def disconnect(vertex, other_vertex)
-        if connected?(vertex, other_vertex)
-            vertex.disconnect other_vertex
-            other_vertex.disconnect vertex
+    def unlink(vertex, other_vertex)
+        if linked?(vertex, other_vertex)
+            vertex.unlink other_vertex
+            other_vertex.unlink vertex
         end
     end
 
@@ -79,12 +81,22 @@ class Graph
             aux = @vertices.keys
             aux.delete vertex
             aux.each do |other_vertex|
-                unless vertex.connected? other_vertex
+                unless vertex.linked? other_vertex
                     return false
                 end
             end
         end
         true
+    end
+
+    def connected?
+        vertex_reached = Set.new 
+        @vertices.keys.each do |vertex|
+            vertex.adjacents.each do |adjacent_vertex|
+                vertex_reached.add(adjacent_vertex)
+            end
+        end
+        (vertex_reached.size == @vertices.size)? true : false
     end
 
     private

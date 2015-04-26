@@ -12,15 +12,15 @@ class Vertex
     	@adjacents.length
     end
 
-    def connect vertex
+    def link vertex
     	@adjacents[vertex] = 1
     end
 
-    def disconnect vertex
+    def unlink vertex
         @adjacents.delete vertex
     end
 
-    def connected? vertex
+    def linked? vertex
         @adjacents.member? vertex
     end
 

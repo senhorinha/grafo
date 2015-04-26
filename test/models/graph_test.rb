@@ -26,7 +26,7 @@ class GraphTest < ActiveSupport::TestCase
 
     test "should remove vertex and all your relationships" do
         add_vertices
-        @graph.connect @vertex_two, @vertex_one
+        @graph.link @vertex_two, @vertex_one
         @graph.remove_vertex @vertex_one
         assert_equal false, @graph.has_vertex?(@vertex_one) || @graph.adjacents(@vertex_two).member?(@vertex_one)
     end
@@ -41,39 +41,39 @@ class GraphTest < ActiveSupport::TestCase
         assert_equal false, @graph.random_vertex.nil?
     end
 
-    test "should connect vertices" do
+    test "should link vertices" do
         add_vertices
-        @graph.connect @vertex_one, @vertex_two
-        assert_equal true, @graph.connected?(@vertex_one, @vertex_two)
+        @graph.link @vertex_one, @vertex_two
+        assert_equal true, @graph.linked?(@vertex_one, @vertex_two)
     end
 
-    test "should not be connected" do
+    test "should not be linked" do
         add_vertices
-        assert_equal false, @graph.connected?(@vertex_two, @vertex_one)
+        assert_equal false, @graph.linked?(@vertex_two, @vertex_one)
     end
 
-    test "should disconnect a vertex" do
+    test "should unlink a vertex" do
         add_vertices
-        @graph.connect @vertex_one, @vertex_two
-        @graph.disconnect @vertex_one, @vertex_two
-        assert_equal false, @graph.connected?(@vertex_one, @vertex_two)
+        @graph.link @vertex_one, @vertex_two
+        @graph.unlink @vertex_one, @vertex_two
+        assert_equal false, @graph.linked?(@vertex_one, @vertex_two)
     end
 
     test "should return the adjacents of a vertex" do
         add_vertices
-        @graph.connect @vertex_one, @vertex_two
-        @graph.connect @vertex_one, @vertex_three
-        @graph.connect @vertex_three, @vertex_one
+        @graph.link @vertex_one, @vertex_two
+        @graph.link @vertex_one, @vertex_three
+        @graph.link @vertex_three, @vertex_one
         adjacents = @graph.adjacents @vertex_one
         assert_equal true, adjacents.member?(@vertex_two) && adjacents.member?(@vertex_three)
     end
 
     test "should return the transitive closure of a vertex" do
         add_vertices
-        @graph.connect @vertex_one, @vertex_two
-        @graph.connect @vertex_one, @vertex_three
-        @graph.connect @vertex_three, @vertex_four
-        @graph.connect @vertex_four, @vertex_five
+        @graph.link @vertex_one, @vertex_two
+        @graph.link @vertex_one, @vertex_three
+        @graph.link @vertex_three, @vertex_four
+        @graph.link @vertex_four, @vertex_five
         transitive_closure = @graph.transitive_closure_of(@vertex_one)
         assert_equal true, transitive_closure.include?(@vertex_one) && transitive_closure.include?(@vertex_two) && transitive_closure.include?(@vertex_three) && transitive_closure.include?(@vertex_four) && transitive_closure.include?(@vertex_five)
     end
@@ -83,15 +83,15 @@ class GraphTest < ActiveSupport::TestCase
         @graph.add_vertex @vertex_two
         @graph.add_vertex @vertex_three
 
-        @graph.connect @vertex_one, @vertex_two
-        @graph.connect @vertex_one, @vertex_three
+        @graph.link @vertex_one, @vertex_two
+        @graph.link @vertex_one, @vertex_three
 
 
-        @graph.connect @vertex_two, @vertex_one
-        @graph.connect @vertex_two, @vertex_three
+        @graph.link @vertex_two, @vertex_one
+        @graph.link @vertex_two, @vertex_three
 
-        @graph.connect @vertex_three, @vertex_one
-        @graph.connect @vertex_three, @vertex_two
+        @graph.link @vertex_three, @vertex_one
+        @graph.link @vertex_three, @vertex_two
 
         assert_equal true, @graph.complete?
     end
@@ -117,7 +117,7 @@ class GraphTest < ActiveSupport::TestCase
         @graph.add_vertex @vertex_two
         @graph.add_vertex @vertex_three
 
-        @graph.connect(@vertex_one, @vertex_two)
+        @graph.link(@vertex_one, @vertex_two)
 
         assert_equal false, @graph.regular?
     end
@@ -128,9 +128,25 @@ class GraphTest < ActiveSupport::TestCase
         @graph.add_vertex @vertex_three
         @graph.add_vertex @vertex_four
 
-        @graph.connect(@vertex_one, @vertex_two)
-        @graph.connect(@vertex_three, @vertex_four)
+        @graph.link(@vertex_one, @vertex_two)
+        @graph.link(@vertex_three, @vertex_four)
 
         assert_equal true, @graph.regular?
+    end
+
+    test "should be a disconnect graph" do
+        @graph.add_vertex @vertex_one
+        @graph.add_vertex @vertex_two
+
+        assert_equal false, @graph.connected?
+    end
+
+    test "should be a connected graph" do
+        @graph.add_vertex @vertex_one
+        @graph.add_vertex @vertex_two
+
+        @graph.link(@vertex_one, @vertex_two)
+
+        assert_equal true, @graph.connected?
     end
 end
