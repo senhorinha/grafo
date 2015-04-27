@@ -99,6 +99,13 @@ class Graph
         (vertex_reached.size == @vertices.size)? true : false
     end
 
+    def has_path? vertex_1, vertex_2
+        visited_vertices = Set.new
+        @result = false
+        find_path vertex_1, vertex_2, visited_vertices 
+        @result
+    end
+
     private
 
     def recursive_transitive_closure(transitive_closure, ignored_vertices)
@@ -112,5 +119,16 @@ class Graph
             transitive_closure = transitive_closure | recursive_transitive_closure(transitive_closure, ignored_vertices)
         end
         transitive_closure
+    end
+
+    def find_path vertex_1, vertex_2, visited_vertices
+        visited_vertices.add(vertex_1)
+        unless (vertex_1.linked?(vertex_2))
+            vertex_1.adjacents.each do |vertex|
+                find_path vertex, vertex_2, visited_vertices unless visited_vertices.member?(vertex) || @result == true
+            end
+        else
+            @result = true
+        end
     end
 end

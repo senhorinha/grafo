@@ -149,4 +149,40 @@ class GraphTest < ActiveSupport::TestCase
 
         assert_equal true, @graph.connected?
     end
+
+    test "should not find a path" do
+        @graph.add_vertex @vertex_one
+        @graph.add_vertex @vertex_two
+        @graph.add_vertex @vertex_three
+        @graph.add_vertex @vertex_four
+
+        @graph.link(@vertex_one, @vertex_two)
+        @graph.link(@vertex_one, @vertex_three)
+
+        assert_equal false, @graph.has_path?(@vertex_one, @vertex_four)
+    end
+
+    test "should find a path" do
+        @graph.add_vertex @vertex_one
+        @graph.add_vertex @vertex_two
+        @graph.add_vertex @vertex_three
+
+        @graph.link(@vertex_one, @vertex_two)
+        @graph.link(@vertex_two, @vertex_three)
+
+        assert_equal true, @graph.has_path?(@vertex_one, @vertex_three)
+    end
+
+    test "should find a path (complexer graph)" do
+        @graph.add_vertex @vertex_one
+        @graph.add_vertex @vertex_two
+        @graph.add_vertex @vertex_three
+        @graph.add_vertex @vertex_four
+
+        @graph.link(@vertex_one, @vertex_two)
+        @graph.link(@vertex_two, @vertex_three)
+        @graph.link(@vertex_three, @vertex_four)
+
+        assert_equal true, @graph.has_path?(@vertex_one, @vertex_four)
+    end
 end
